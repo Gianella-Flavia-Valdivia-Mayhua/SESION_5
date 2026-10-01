@@ -14,29 +14,33 @@ public class Contenedor<F, S> {
     public void agregarPar(F primero, S segundo) {
         pares.add(new Par<>(primero, segundo));
     }
+public Par<F, S> obtenerPar(int indice) {
 
-    public Par<F, S> obtenerPar(int indice) {
-        if (indice < 0 || indice >= pares.size()) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango.");
-        }
-
-        ArrayList<Par<F, S>> auxiliar = new ArrayList<>(pares);
-
-        for (int i = auxiliar.size() - 1; i >= 0; i--) {
-            Par<F, S> plato = auxiliar.get(i);
-
-            System.out.println("Se retiró temporalmente el plato " + plato.getPrimero());
-
-            if (indice == 0) {
-                System.out.println("Se encontró el plato " + plato.getPrimero());
-                return plato;
-            }
-
-            indice--;
-        }
-
-        return pares.get(pares.size() - 1);
+    if (indice < 0 || indice >= pares.size()) {
+        throw new IndexOutOfBoundsException("Índice fuera de rango.");
     }
+
+    ArrayList<Par<F, S>> auxiliar = new ArrayList<>();
+    Par<F, S> encontrado = null;
+
+    for (int i = pares.size() - 1; i >= 0; i--) {
+
+        Par<F, S> plato = pares.get(i);
+        auxiliar.add(plato);
+
+        System.out.println("Se retiró temporalmente el plato " + plato.getPrimero());
+
+        if (indice == 0) {
+            System.out.println("Se encontró el plato " + plato.getPrimero());
+            encontrado = plato;
+            break;
+        }
+
+        indice--;
+    }
+
+    return encontrado;
+}
 
     public ArrayList<Par<F, S>> obtenerTodosLosPares() {
         ArrayList<Par<F, S>> auxiliar = new ArrayList<>();
